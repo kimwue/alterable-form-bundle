@@ -16,12 +16,12 @@
   },
   "autoload": {
     "psr-4": {
-      "": "src/"
+      "Wuestkamp\\AlterableFormBundle\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "": "tests/"
+      "Wuestkamp\\AlterableFormBundle\\": "tests/"
     }
   }
 }
