@@ -1,0 +1,5 @@
+services:
+    alterable_form.factory:
+        class: Wuestkamp\AlterableFormBundle\Form\FormFactory
+        calls:
+            - [setConfiguration, ["%alterable_form.configuration%"]]
