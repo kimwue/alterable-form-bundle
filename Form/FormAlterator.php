@@ -3,14 +3,15 @@
 namespace Wuestkamp\AlterableFormBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
+use Wuestkamp\AlterableFormBundle\Config\ConfigParser;
 
 class FormAlterator
 {
-    private $configuration;
+    private $configParser;
 
-    public function __construct(array $configuration)
+    public function __construct(ConfigParser $configParser)
     {
-        $this->configuration = $configuration;
+        $this->configParser = $configParser;
     }
 
     /**
@@ -23,10 +24,10 @@ class FormAlterator
      */
     public function alter(FormBuilderInterface $builder, $type)
     {
-        foreach ($this->configuration['forms'] as $formClass => $formConfig) {
-            if ($type === $formClass) {
-                foreach ($formConfig as $field => $fieldConfig) {
-                    $this->addField($builder, $field, $fieldConfig);
+        if ($fields = $this->configParser->getFields($type)) {
+            foreach ($fields as $fieldName => $fieldOptions) {
+                if ($options = $this->configParser->getFieldConfigOptions($type, $fieldName)) {
+                    $this->addField($builder, $fieldName, $options);
                 }
             }
         }
@@ -48,7 +49,7 @@ class FormAlterator
             $field = $builder->get($fieldName);
             $options = $field->getOptions();
             $type = get_class($field->getType()->getInnerType());
-            $options = array_merge($options, $fieldOptions['options']);
+            $options = array_merge($options, $fieldOptions);
             $builder->add($field->getName(), $type, $options);
         }
     }

@@ -1,6 +1,7 @@
 services:
-    alterable_form.form_factory:
-        class: Wuestkamp\AlterableFormBundle\Form\FormFactory
     alterable_form.form_alterator:
         class: Wuestkamp\AlterableFormBundle\Form\FormAlterator
+        arguments: ['@alterable_form.config.config_parser']
+    alterable_form.config.config_parser:
+        class: Wuestkamp\AlterableFormBundle\Config\ConfigParser
         arguments: ['%alterable_form.configuration%']
