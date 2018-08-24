@@ -26,13 +26,36 @@ class FormAlterator
     {
         if ($fields = $this->configParser->getFields($type)) {
             foreach ($fields as $fieldName => $fieldOptions) {
-                if ($options = $this->configParser->getFieldConfigOptions($type, $fieldName)) {
-                    $this->addField($builder, $fieldName, $options);
-                }
+                $this->performFieldOperations($builder, $type, $fieldName);
             }
         }
 
         return $builder;
+    }
+
+    /**
+     * @param $builder
+     * @param $type
+     * @param $fieldName
+     */
+    private function performFieldOperations($builder, $type, $fieldName)
+    {
+        if ($remove = $this->configParser->getFieldConfigRemove($type, $fieldName)) {
+            $this->removeField($builder, $fieldName);
+        } elseif ($options = $this->configParser->getFieldConfigOptions($type, $fieldName)) {
+            $this->addField($builder, $fieldName, $options);
+        }
+    }
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param $fieldName
+     */
+    private function removeField(FormBuilderInterface $builder, $fieldName)
+    {
+        if ($builder->has($fieldName)) {
+            $builder->remove($fieldName);
+        }
     }
 
     /**

@@ -27,7 +27,7 @@ class Configuration implements ConfigurationInterface
                         ->useAttributeAsKey('field')
                         ->prototype('array')
                             ->children()
-                                ->booleanNode('remove_field')
+                                ->booleanNode('remove')
                                     ->defaultFalse()
                                 ->end()
 

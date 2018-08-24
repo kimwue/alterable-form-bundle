@@ -61,16 +61,41 @@ class ConfigParser
     /**
      * @param $formClassName
      * @param $fieldName
+     * @param $key
      * @return array|null
      */
-    public function getFieldConfigOptions($formClassName, $fieldName)
+    public function getFieldConfigKey($formClassName, $fieldName, $key)
     {
         if ($field = $this->getFieldConfig($formClassName, $fieldName)) {
-            if (array_key_exists('options', $field)) {
-                return $field['options'];
+            if (array_key_exists($key, $field)) {
+                return $field[$key];
             }
         }
 
         return null;
+    }
+
+    /**
+     * @param $formClassName
+     * @param $fieldName
+     * @return array|null
+     */
+    public function getFieldConfigOptions($formClassName, $fieldName)
+    {
+        return $this->getFieldConfigKey($formClassName, $fieldName, 'options');
+    }
+
+    /**
+     * @param $formClassName
+     * @param $fieldName
+     * @return bool
+     */
+    public function getFieldConfigRemove($formClassName, $fieldName)
+    {
+        if ($remove = $this->getFieldConfigKey($formClassName, $fieldName, 'remove')) {
+            return $remove === true;
+        }
+
+        return false;
     }
 }

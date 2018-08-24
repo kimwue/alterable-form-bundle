@@ -15,7 +15,7 @@ This plugin requires Symfony `^2.8|^3.0`
 }
 ```
 
-You need to create your form using the classname like this:
+You need to create your form using the classname like this instead of a name string:
 
 ```php
 $form = $this->createForm(MyForm::class, $myObject);
@@ -26,14 +26,16 @@ Then you can define yml configuration like this:
 ```YML
 alterable_form:
     Namespace\Bundle\Form\MyForm:
-        field_name:
+        first_name:
             options:
                 required: false
+        last_name:
+            remove: true
 ```
 
 Tests
 -------
-coming... O:)
+coming soon... O:)
 
 Usage
 -------
