@@ -20,19 +20,22 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('alterable_form');
         $rootNode
-            ->useAttributeAsKey('class')
-            ->prototype('array')
-                ->useAttributeAsKey('field')
-                ->prototype('array')
-                    ->children()
-                        ->booleanNode('enabled')
-                            ->defaultTrue()
-                        ->end()
+            ->children()
+                ->arrayNode('forms')
+                    ->useAttributeAsKey('class')
+                    ->prototype('array')
+                        ->useAttributeAsKey('field')
+                        ->prototype('array')
+                            ->children()
+                                ->booleanNode('enabled')
+                                    ->defaultTrue()
+                                ->end()
 
-                        ->variableNode('options')
+                                ->variableNode('options')
+                                ->end()
+                            ->end()
                         ->end()
                     ->end()
-                ->end()
             ->end();
 
         return $treeBuilder;

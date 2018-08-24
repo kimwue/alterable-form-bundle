@@ -4,6 +4,7 @@ namespace Wuestkamp\AlterableFormBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 use Wuestkamp\AlterableFormBundle\Form\FormFactory;
 
 class OverrideFormFactoryCompilerPass implements CompilerPassInterface
@@ -12,8 +13,6 @@ class OverrideFormFactoryCompilerPass implements CompilerPassInterface
     {
         $definition = $container->getDefinition('form.factory');
         $definition->setClass(FormFactory::class);
-        $definition->addMethodCall('setConfiguration', [
-            $container->getParameter('alterable_form.configuration')
-        ]);
+        $definition->addArgument(new Reference('alterable_form.form_alterator'));
     }
 }

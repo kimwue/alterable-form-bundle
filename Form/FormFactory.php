@@ -2,47 +2,35 @@
 
 namespace Wuestkamp\AlterableFormBundle\Form;
 
-use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormRegistryInterface;
+use Symfony\Component\Form\ResolvedFormTypeFactoryInterface;
 
 class FormFactory extends \Symfony\Component\Form\FormFactory
 {
-    private $configuration;
+    private $alterator;
+
+    public function __construct(
+        FormRegistryInterface $registry,
+        ResolvedFormTypeFactoryInterface $resolvedTypeFactory,
+        FormAlterator $alterator
+    )
+    {
+        parent::__construct($registry, $resolvedTypeFactory);
+        $this->alterator = $alterator;
+    }
 
     /**
-     * TODO
+     * Creates FormBuilder as parent but will apply changes from yml if available
+     *
+     * @param string $type
+     * @param null $data
+     * @param array $options
+     * @return \Symfony\Component\Form\FormInterface
      */
-    public function create($type = 'Symfony\Component\Form\Extension\Core\Type\FormType', $data = null, array $options = array())
+    public function create($type = 'Symfony\Component\Form\Extension\Core\Type\FormType', $data = null, array $options = [])
     {
         $builder = $this->createBuilder($type, $data, $options);
-
-        foreach ($this->configuration as $formClass => $formConfig) {
-
-            if ($type === $formClass) {
-                $this->addEventListenerForForm($builder, $formConfig);
-            }
-        }
-
+        $this->alterator->alter($builder, $type);
         return $builder->getForm();
-    }
-
-    public function setConfiguration($configuration)
-    {
-        $this->configuration = $configuration;
-    }
-
-    private function addEventListenerForForm(FormBuilderInterface $builder, $formConfig)
-    {
-        foreach ($formConfig as $field => $fieldConfig) {
-            $this->addField($builder, $field, $fieldConfig);
-        }
-    }
-
-    private function addField(FormBuilderInterface $builder, $fieldName, $fieldOptions)
-    {
-        $field = $builder->get($fieldName);
-        $options = $field->getOptions();
-        $type = get_class($field->getType()->getInnerType());
-        $options = array_merge($options, $fieldOptions['options']);
-        $builder->add($field->getName(), $type, $options);
     }
 }
