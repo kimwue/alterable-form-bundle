@@ -94,7 +94,9 @@ class ConfigParser
      */
     public function getFieldConfigRemove($formClassName, $fieldName)
     {
-        if ($remove = $this->getFieldConfigKey($formClassName, $fieldName, 'remove')) {
+        $remove = $this->getFieldConfigKey($formClassName, $fieldName, 'remove');
+
+        if ($remove !== null) {
             return $remove === true;
         }
 
