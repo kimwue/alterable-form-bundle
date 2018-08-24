@@ -1,7 +1,8 @@
 Alterable Form Bunde
 ==============
 
-This bundle lets you alter existing Symfony Forms based on yml config values.
+This bundle lets you alter **existing** Symfony Forms based on yml config values.
+If you want to create forms dynamically from yml check out [LinioIT/dynamic-form-bundle](https://github.com/LinioIT/dynamic-form-bundle).
 
 Getting Started
 -------
@@ -25,12 +26,17 @@ Then you can define yml configuration like this:
 
 ```YML
 alterable_form:
-    Namespace\Bundle\Form\MyForm:
-        first_name:
-            options:
-                required: false
-        last_name:
-            remove: true
+    forms:
+        Namespace\Bundle\Form\MyForm:
+            fields:
+                first_name:
+                    options:
+                        required: false
+                last_name:
+                    remove: true
+                email:
+                    options:
+                        attr: {class: 'css_class'}
 ```
 
 Tests

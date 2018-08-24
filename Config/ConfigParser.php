@@ -36,7 +36,9 @@ class ConfigParser
         $forms = $this->getForms();
 
         if (array_key_exists($formClassName, $forms)) {
-            return $forms[$formClassName];
+            if (array_key_exists('fields', $forms[$formClassName])) {
+                return $forms[$formClassName]['fields'];
+            }
         }
 
         return null;
