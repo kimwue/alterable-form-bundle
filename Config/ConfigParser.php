@@ -94,12 +94,12 @@ class ConfigParser
      * @param $fieldName
      * @return bool
      */
-    public function getFieldConfigRemove($formClassName, $fieldName)
+    public function getFieldConfigAdd($formClassName, $fieldName)
     {
-        $remove = $this->getFieldConfigKey($formClassName, $fieldName, 'remove');
+        $add = $this->getFieldConfigKey($formClassName, $fieldName, 'add');
 
-        if ($remove !== null) {
-            return $remove === true;
+        if ($add !== null) {
+            return $add === true;
         }
 
         return false;

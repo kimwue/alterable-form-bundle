@@ -40,7 +40,7 @@ class FormAlterator
      */
     private function performFieldOperations($builder, $type, $fieldName)
     {
-        if ($remove = $this->configParser->getFieldConfigRemove($type, $fieldName)) {
+        if (!$add = $this->configParser->getFieldConfigAdd($type, $fieldName)) {
             $this->removeField($builder, $fieldName);
         } elseif ($options = $this->configParser->getFieldConfigOptions($type, $fieldName)) {
             $this->addField($builder, $fieldName, $options);

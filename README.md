@@ -41,7 +41,7 @@ alterable_form:
                     options:
                         required: false
                 last_name:
-                    remove: true
+                    add: false # default is true
         Namespace\Bundle\Form\MyOtherForm:
             fields:
                 email:
