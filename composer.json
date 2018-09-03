@@ -12,7 +12,8 @@
     "phpunit/phpunit": "^5.7",
     "symfony/validator": "^2.8|^3.0",
     "friendsofphp/php-cs-fixer": "^2.0",
-    "symfony/security": "^2.8|^3.0"
+    "symfony/security": "^2.8|^3.0",
+    "mockery/mockery": "^0.9.9"
   },
   "autoload": {
     "psr-4": {

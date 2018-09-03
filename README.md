@@ -51,4 +51,4 @@ alterable_form:
 
 Tests
 -------
-coming soon... O:)
+Git clone this repo then `composer install` and `./vendor/phpunit/phpunit/phpunit -c .`
