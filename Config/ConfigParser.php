@@ -63,6 +63,8 @@ class ConfigParser
     }
 
     /**
+     * returns the $key value for $formClassName->$fieldName
+     *
      * @param $formClassName
      * @param $fieldName
      * @param $key
@@ -80,6 +82,8 @@ class ConfigParser
     }
 
     /**
+     * returns the options value for $formClassName->$fieldName
+     *
      * @param $formClassName
      * @param $fieldName
      * @return array|null
@@ -90,6 +94,8 @@ class ConfigParser
     }
 
     /**
+     * returns the add value for $formClassName->$fieldName
+     *
      * @param $formClassName
      * @param $fieldName
      * @return bool
