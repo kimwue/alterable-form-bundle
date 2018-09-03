@@ -4,33 +4,45 @@ Alterable Form Bundle
 This bundle lets you alter **existing** Symfony Forms based on yml config values.
 If you want to create forms dynamically from yml check out [LinioIT/dynamic-form-bundle](https://github.com/LinioIT/dynamic-form-bundle).
 
-Getting Started
+Installation
 -------
-This plugin requires Symfony `^2.8|^3.0`
+This plugin requires Symfony `^2.8|^3.0|^4.0`
 
 ```JSON
 {
     "require": {
-        "wuestkamp/alterable-form-bundle": "^0.1.0"
+        "wuestkamp/alterable-form-bundle": "^0.2"
     }
 }
 ```
 
-You need to create your form using the classname like this instead of a name string to be able to use this bundle:
+**for SF < 4.0**
 
-```php
-$form = $this->createForm(MyForm::class, $myObject);
-```
-
-Usage
--------
 Add the bundle to your `AppKernel.php`
 
 ```php
 new Wuestkamp\AlterableFormBundle\AlterableFormBundle();
 ```
 
-Then you can define yml configuration like this:
+If you are using 2.8 you need to create your forms (which you want to alter) using the classname like this instead of a name string to be able to use this bundle:
+
+```php
+$form = $this->createForm(MyForm::class, $myObject);
+```
+
+**for SF >= 4.0**
+
+Add this to `config/bundles.php`:
+```
+\Wuestkamp\AlterableFormBundle\AlterableFormBundle::class => ['all' => true],
+```
+
+create file `config/packages/alterable_form.yml`.
+
+
+Usage
+-------
+Define yml configuration like this:
 
 ```YML
 alterable_form:
